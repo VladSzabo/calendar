@@ -69,7 +69,7 @@ function* saveEvent() {
         event.guests.forEach((guest) => {
             if (guest.status == 'fa-hourglass') {
                 var html = mailContent.replace('@yes', link + '&guest=' + guest.name + '&status=' + encodeURIComponent('fa-check text-success')).replace('@no', link + '&guest=' + guest.name + '&status=' + encodeURIComponent('fa-ban text-danger'));
-                fs.writeFile(db[guest.name].email + '.html');
+                //fs.writeFile(db[guest.name].email + '.html');
                 email.SendMail({
                     from: '"Echipa practică 👥" <admin@calendar.org>',
                     to: db[guest.name].email,
