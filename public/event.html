@@ -1,0 +1,95 @@
+<section class="col-xs-12">
+    
+    <div class="new-event-fix-icon">
+        <a class="" href="" ng-click="vm.addEvent()"> <i class="fa fa-4x fa-plus-circle" /> </a>
+    </div>
+
+    <div class="col-md-6" ng-repeat="event in vm.events track by $index">
+        <div class="panel panel-info">
+            <div class="panel-heading event-heading">
+                <nav class="navbar navbar-default">
+                    <div class="pull-left">
+                        <a class="navbar-brand" href="" ng-hide="event.isEditing"> {{event.title}} </a>
+                        <input class="form-control" ng-model="event.title" ng-show="event.isEditing" />
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="" ng-click="vm.saveEvent(event, $index)">
+                                <i class="fa fa-lg fa-fw fa-pencil"></i> {{(event.isEditing ? 'Salveaza' : 'Editeaza')}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" ng-click="vm.deleteEvent($index,event.day)"> <i class="fa fa-lg fa-fw fa-trash-o"></i> Sterge </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group" ng-if="!event.isEditing">
+                            <label class="col-sm-12 control-label"> {{event.description}} </label>
+                        </div>
+                        <div class="form-group" ng-if="event.isEditing">
+                            <div class="col-sm-12">
+                                <textarea class="form-control" rows="3" ng-model="event.description"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <ul class="list-group" ng-hide="event.isEditing">
+                    <li class="list-group-item" ng-repeat="item in event.guests">{{item}}</li>
+                </ul>
+                <ul class="list-group" ng-if="event.isEditing">
+                    <li class="list-group-item"  ng-repeat="item in event.guests">
+                        <div class="checkbox">
+                            <label>
+                            <input type="checkbox" ng-model="item.check"/> {{item.name}}
+          	            </label>
+                        </div>
+                    </li>
+                </ul>               
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="modalAdd2" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <h4 class="modal-title">Event</h4>
+
+                <div class="modal-body">
+                    <textarea ng-model="item">  </textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="vm.saveEvent(item)">Add</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAdd" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <h4 class="modal-title">Event</h4>
+
+                <div class="modal-body">
+                    <textarea ng-model="item">{{item}}</textarea>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="vm.editItem(0,item)">Save</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,97 @@
+<section>
+    <form class="form-horizontal" ng-hide="vm.token || vm.isReset">
+        <fieldset>
+            <legend>{{vm.currentAction}}</legend>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Utilizator</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="vm.user.userName" placeholder="Nume utilizator ...">
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.currentAction == vm.actions[1]">
+                <label class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="vm.user.email" placeholder="Email ...">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="col-sm-2 control-label">Parola</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" ng-model="vm.user.password" id="inputPassword" placeholder="Parola ... ">
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.currentAction == vm.actions[1]">
+                <label for=" inputPassword " class="col-sm-2 control-label ">Rescrie parola</label>
+                <div class="col-sm-10 ">
+                    <input type="password" class="form-control " id="inputPassword " ng-model="vm.user.passwordConfirm
+            " placeholder="Rescrie parola ... ">
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="col-sm-10 col-sm-offset-2 ">
+                    <button class="btn btn-primary " ng-click="vm.doAction() "> OK </button>
+                    <button class="btn btn-default pull-right " ng-click="vm.switchAction() "> {{vm.opositeAction}} </button>
+                    <div>
+                        <a ng-click="vm.isReset=true" class="text-info ">Am uitat parola</a>
+
+
+                        <!--<span>{{vm.isReset}}</span>-->
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+    <form class="form-horizontal " ng-show="vm.isReset">
+        <fieldset>
+            <legend>Resetează parola</legend>
+            <div class="form-group ">
+                <label for="inputEmail " class="col-lg-2 control-label ">Introduceţi email:</label>
+                <div class="col-lg-10 ">
+                    <input type="text " class="form-control " id="inputEmail " placeholder="Email " ng-model="vm.user.email ">
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="col-lg-10 col-lg-offset-2 pull-right ">
+                    <button type="submit" class="btn btn-primary " ng-click="vm.resetPassword() ">Trimite email</button>
+                    <button type="submit" class="btn btn-primary" ng-click="vm.isReset=false ">Cancel</button>
+
+                </div>
+            </div>
+
+            <!-- <span>{{vm.isReset}}</span>-->
+
+        </fieldset>
+    </form>
+
+    
+
+     <form class="form-horizontal " ng-if="vm.token">
+        <fieldset>
+            <legend>Resetează parola</legend>
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label">Parolă</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="inputEmail" ng-model="vm.newPass1" placeholder="Parolă nouă">
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label">Rescrie parola</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="inputEmail" ng-model="vm.newPass2" placeholder="Rescrie parola">
+                </div>
+            </div>
+            <div class="col-lg-10 col-lg-offset-2 pull-right ">
+                    <button type="submit" class="btn btn-primary " ng-click="vm.Reset()">Reseteaza</button>
+                </div>
+
+        </fieldset>
+    </form>
+
+
+</section>

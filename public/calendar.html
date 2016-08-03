@@ -1,0 +1,57 @@
+<section>    
+    <form class="form-horizontal">
+        <fieldset>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Luna</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.user.selectedMonth" ng-change="vm.update()" ng-options="item for item in vm.months">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Anul</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.user.selectedYear" ng-change="vm.update()" ng-options="item for item in vm.years">
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <table class="table table-bordered ">
+        <thead>
+            <!--<tr class="success">
+                <th ng-repeat="weekDay in vm.daysInWeek" ng-if="vm.latime > 750">{{weekDay}}</th>
+                <th ng-repeat="weekDay in vm.daysInWeekFisrtLetter" ng-if="vm.latime <= 750">{{weekDay}}</th>
+            </tr>-->
+            <tr class="visible-xs success">
+                <th ng-repeat="weekDay in vm.daysInWeekFisrtLetter">{{weekDay}}</th>
+            </tr>
+            <tr class="hidden-xs success ">
+                <th ng-repeat="weekDay in vm.daysInWeek">{{weekDay}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in [0,1,2,3,4,5] " >
+                <td ng-repeat="day in vm.daysInWeek track by $index" ng-click="vm.newEvent(vm.days[row][$index].value)">
+                    <div ng-if="vm.days[row][$index].value">
+                        <ul class="nav nav-stacked">
+                            <!-- se vor seta clase speciale pentru ziua curenta -->
+                            <li ng-class="{'label label-danger label-as-badge pull-right':(vm.days[row][$index].value == vm.user.currentDay)}">
+                                {{vm.days[row][$index].value}}
+                            </li>
+                        </ul>
+                        <span class="nav nav-stacked">
+                            <span class="event-list hidden-xs" ng-repeat="event in vm.days[row][$index].events track by $index">
+                                <small><i class="fa fa-square text-success" aria-hidden="true"></i>{{event}}</small>                 
+                            </span>
+                            <span class="event-list visible-xs label label-success" ng-hide = "vm.days[row][$index].events.length === 0"  >
+                                <small>{{vm.days[row][$index].events.length}} Ev</small>                                  
+                            </span>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

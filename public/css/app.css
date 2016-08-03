@@ -1,0 +1,73 @@
+div.new-event-fix-icon{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 100;
+}
+div.panel-heading.event-heading{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+table.table{
+    table-layout: fixed;
+}
+div.navbar-header a.navbar-brand > i.fa-2x {
+    padding: 0;
+    margin-top: -.2em;
+    vertical-align: center;
+}
+table.table > tbody > tr{
+    height: 7em;
+    text-align : center;
+}
+table.table > thead > tr > th{
+    text-align: center !important;
+    font-size: 125%;
+    
+}
+table.table > tbody > tr > td > div > span{
+    display: block;
+    text-align-last: left;
+    font-family: Verdana;
+    text-align: left;     
+}
+
+table.table > tbody > tr > td > div > ul > li{
+
+    text-align: right;
+    padding: 3px;
+    margin: 0;
+    border: 0;
+    font-size: 150%;
+    
+}
+table.table > tbody > tr > td > ul {
+
+    list-style-type:  none;
+    padding: 0;
+    margin: 0;
+}
+span.event-list{
+    display: block;
+}
+
+.fa {
+    vertical-align: center;
+}
+.navbar-form{
+    padding-right:0;
+    margin-right:0;
+}
+.btn-primary{
+    margin-right:0;
+}
+.btn-info{
+    float: right;
+}
+.ng-scope{
+    padding-top: 0;
+}
+.clasaaaaa{
+    
+}
