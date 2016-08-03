@@ -61,3 +61,12 @@ angular.module('app')
     .config(function ($httpProvider) {
         $httpProvider.interceptors.push('httpInterceptor');
     });
+angular
+    .module('app')
+    .run(
+    function ($rootScope, serviceCalendar) {
+        $rootScope.$on('Logged In', function (event, data) {
+            serviceCalendar.getTheme();
+        });
+    }
+    )
