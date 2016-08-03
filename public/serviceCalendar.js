@@ -143,13 +143,21 @@ function serviceCalendar($http, serviceUser) {
     function getMonthIndex(val) {
 
         var luni = ["Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie", "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie"];
-
-        for (var i = 0; i < 12; i++) {
-
-            if (luni[i] == val.capitalizeFirstLetter())
-                return i;
+        var index = '0';
+        val = val.capitalizeFirstLetter();
+        if (val.charCodeAt(0) == 8206) {
+            val = val.substr(1, val.length - 1);
         }
 
+        for (var i = 0; i < 12; i++) {
+            if (val == luni[i]) {
+                if (i < 10)
+                    index = index + i;
+                else
+                    index = i;
+                return index;
+            }
+        }
     }
 
     function getStartingDay(year, month) {

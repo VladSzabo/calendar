@@ -39,7 +39,7 @@ angular
                     var body = response.data;
                     var month = getMonthIndex(vm.user.selectedMonth);
                     var startingDay = getStartingDay(vm.user.selectedYear, month);
-                    
+
                     if (body != false) {
 
                         var newDay=0;
@@ -83,10 +83,13 @@ angular
 
                 var luni = ["Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie", "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie"];
                 var index = '0';
+                val = val.capitalizeFirstLetter();
+                if(val.charCodeAt(0) == 8206){
+                    val = val.substr(1, val.length - 1);
+                }
+                
                 for (var i = 0; i < 12; i++) {
-
-                    if (luni[i] == val.capitalizeFirstLetter()) {
-
+                    if (val == luni[i]) {
                         if (i < 10)
                             index = index + i;
                         else
@@ -94,7 +97,6 @@ angular
                         return index;
                     }
                 }
-
             }
 
         }]);
