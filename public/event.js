@@ -21,18 +21,22 @@ function event($routeParams, $window, serviceCalendar, serviceUser) {
 
     vm.saveEvent = function saveEvent(event, index) {
         if (event.isEditing) {
-            var guests = [];
-            event.guests.forEach(function (element) {
-                if (element.check) guests.push(element.name);
-            });
+            for (var i = event.guests.length; i--;) {
+                if (event.guests[i].status || event.guests[i].check)
+                    event.guests[i].status = event.guests[i].status || 'fa-hourglass';
+                else
+                    event.guests.splice(i, 1);
+            }
         } else {
-            var guests = [];
-            vm.guests.forEach(function (element) {
-                guests.push({ name: element, check: (event.guests.indexOf(element) !== -1) });
+            vm.guests.forEach(function (name) {
+                var found = false;
+                event.guests.forEach(function (guest) {
+                    if (guest.name == name) found = true;
+                });
+                if (!found) event.guests.push({ name: name });
             });
         }
-        event.guests = guests;
-        console.log(event.guests);
+
         event.isEditing = !event.isEditing;
         if (!event.isEditing)
             serviceCalendar.saveEvent(event, index).then(function (ok) {
@@ -40,11 +44,12 @@ function event($routeParams, $window, serviceCalendar, serviceUser) {
             });
     }
     vm.addEvent = function addEvent() {
-        var event = { day: vm.day, title: 'New event', description: 'for everyone', guests: [], isEditing: true };
+        var event = { day: vm.day, title: 'New event', description: 'for everyone', guests: [] };
+        vm.saveEvent(event, vm.events.length);
         vm.events.push(event);
         serviceCalendar.addEvent(event).then(function succes(ok) {
-            if (ok.data === true)
-                vm.events.push(event);
+            //if (ok.data === true)
+                //vm.events.push(event);
         });
     }
 

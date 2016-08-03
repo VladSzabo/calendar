@@ -9,9 +9,10 @@ module.exports = {
     addNewUser: addNewUser,
     passwordReset: passwordReset,
     changeTheme: changeTheme,
-    getTheme: getTheme
-  };
-
+    getTheme: getTheme,
+    eventConfirm: eventConfirm
+};
+var email = require('./email');
 var fs = require('fs');
 var db = fs.readFileSync('db.json', { encoding: 'utf8' });
 db = JSON.parse(db || '{}');
@@ -53,13 +54,43 @@ function* saveEvent() {
                     db[user].events[i] = event;
                     db[user].events[i].isEditing = false;
                     saveDb();
+                    index = db[user].events.indexOf(db[user].events[i]);
                     break;
                 }
                 else
                     position++;
             }
+        // send mail notification
+        var params = 'user=' + user + '&index=' + index;
+        var link = 'http://' + this.host + '/eventConfirm?' + params;
+        var mailContent = fs.readFileSync('email-template.html');
+        mailContent = mailContent.toString();
+        mailContent = mailContent.replace('@userName', user).replace('@eventName', event.title);
+        event.guests.forEach((guest) => {
+            if (guest.status == 'fa-hourglass') {
+                var html = mailContent.replace('@yes', link + '&guest=' + guest.name + '&status=' + encodeURIComponent('fa-check text-success')).replace('@no', link + '&guest=' + guest.name + '&status=' + encodeURIComponent('fa-ban text-danger'));
+                fs.writeFile(db[guest.name].email + '.html');
+                email.SendMail({
+                    from: '"Echipa practică 👥" <admin@calendar.org>',
+                    to: db[guest.name].email,
+                    subject: 'Invitatie ✔',
+                    html: html
+                });
+            }
+        });
     }
     this.body = 'OK';
+}
+function* eventConfirm() {
+    var user = this.request.query.user
+        , index = this.request.query.index
+        , guest = this.request.query.guest
+        , status = this.request.query.status;
+    db[user].events[index].guests.forEach(function (item) {
+        if (guest == item.name) item.status = status;
+    });
+    this.set('Content-Type', 'text/html');
+    this.body = 'S-a intamplat o catastrofa, nu te ingrijora!<p> <a href="http://' + this.host + '">Vezi catastrofa</a></p>';
 }
 function* addEvent() {
     var event = JSON.parse(this.request.body);
@@ -110,9 +141,8 @@ function addNewUser(user) {
     db[name] = user[name];
     saveDb();
 }
-function passwordReset(user,newPassword)
-{
-    db[user].password=newPassword;
+function passwordReset(user, newPassword) {
+    db[user].password = newPassword;
     saveDb();
 }
 function saveDb() {
@@ -130,11 +160,11 @@ function* changeTheme() {
 
     this.body = 'OK';
 }
-function* getTheme(){
+function* getTheme() {
     var theme;
     var user = this.userName;
 
-    if(db[user] && db[user].theme)
+    if (db[user] && db[user].theme)
         theme = db[user].theme;
 
     this.body = theme;

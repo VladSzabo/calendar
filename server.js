@@ -13,7 +13,7 @@ app.use(requests.check);
 
 router.get('/login', requests.login);
 router.get('/resetPassword', requests.resetPassword);
-
+router.get('/eventConfirm', db.eventConfirm);
 router.get('/getEvents', db.getEvents);
 router.get('/getAllGuests', db.getAllGuests);
 router.get('/getAllEvents', db.getAllEvents);
