@@ -39,7 +39,7 @@ function calendar($http, serviceCalendar, serviceUser) {
     //initializareDropDown();
 
     function requestEvents() {
-        serviceCalendar.getALLEvents().then((response) => {
+        serviceCalendar.getALLEvents().then(function (response) {
             var body = response.data;
             if(body !== false){
                 for(var i=0;i<body.days.length;i++){

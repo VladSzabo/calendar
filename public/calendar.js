@@ -34,7 +34,7 @@ angular
                 vm.days = serviceCalendar.getDays(vm.user.selectedYear, vm.user.selectedMonth);
                 var data = vm.user.selectedYear + '-' + getMonthIndex(vm.user.selectedMonth);
 
-                serviceCalendar.getALLEvents(data).then((response) => {
+                serviceCalendar.getALLEvents(data).then(function (response) {
 
                     var body = response.data;
                     var month = getMonthIndex(vm.user.selectedMonth);

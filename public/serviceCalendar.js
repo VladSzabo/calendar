@@ -129,7 +129,7 @@ function serviceCalendar($http, serviceUser) {
             url: '/getTheme'
         });
 
-        promise.then((response) => {
+        promise.then(function (response) {
             var theme = response.data;
             if (!theme) {
                 theme = 'darkly';

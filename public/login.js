@@ -31,7 +31,7 @@ angular
             if ((vm.user.userName) && (vm.user.password)) {
                 var credentials = vm.user.userName + "." + vm.user.password;
                 vm.user.credentials = credentials;
-                vm.user.login().then((response) => {
+                vm.user.login().then(function (response) {
                     if (response.data) {
                         localStorage.setItem('token', response.data);
                         localStorage.setItem('userName', vm.user.userName);
@@ -49,7 +49,7 @@ angular
         vm.register = function () {
             if (vm.user.userName && vm.user.password && vm.user.passwordConfirm && vm.user.email) {
                 vm.user.registerData = vm.user.userName + "/" + vm.user.password + "/" + vm.user.passwordConfirm + "/" + vm.user.email;
-                vm.user.register().then((response) => {
+                vm.user.register().then(function (response) {
                     if (response.data) {
                         vm.user.loggedIn = true;
                         vm.login();
@@ -63,7 +63,7 @@ angular
                 alert("Completați toate câmpurile.");
         }
         vm.resetPassword = function () {
-            vm.user.resetPassword(vm.user.email).then((response) => {
+            vm.user.resetPassword(vm.user.email).then(function (response) {
                 if (response.data)
                     alert("Verificati mail-ul pentru a reseta parola");
                 else
@@ -71,7 +71,7 @@ angular
             });
         }
         vm.Reset = function () {
-            vm.user.Reset(vm.token, vm.newPass1, vm.newPass2).then((response) => {
+            vm.user.Reset(vm.token, vm.newPass1, vm.newPass2).then(function (response) {
                 if (response.data) {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('userName', response.data.name);
